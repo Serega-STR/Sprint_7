@@ -3,7 +3,7 @@ import allure
 import logging
 
 from url import URL
-from helper import *
+from helper import Helper
 
 
 class AuthMethods:
@@ -30,7 +30,7 @@ class CreateCourierMethods:
 
     @staticmethod
     def create_courier():
-        return register_new_courier_and_return_login_password()
+        return Helper.register_new_courier_and_return_login_password()
 
     @staticmethod
     def create_duplicate_courier():

@@ -4,8 +4,8 @@ import allure
 import logging
 import string
 
-from api_methods.helper import *
-from api_methods.url import *
+from helper import Helper
+from url import URL
 from api_methods.main_methods import DeleteCourierMethods
 
 """ class TestCreateCourierMethods:
@@ -54,8 +54,8 @@ from api_methods.main_methods import DeleteCourierMethods
         assert response.json() == message, logger.info(f'Ошибка! Ожидаемое сообщение: {message}, фактическое: {response.json()}') """
 
 class TestDeleteCourierMethods:
-    @staticmethod
-    def test_create_delete_courier_succes():
+    
+    def test_create_delete_courier_succes(self):
         response = DeleteCourierMethods.create_delete_courier()
         assert response.status_code == 200, logger.info(f'Ошибка! Ожидаемый код статуса 200, фактический {response.status_code}')
         message = {ok: true}
