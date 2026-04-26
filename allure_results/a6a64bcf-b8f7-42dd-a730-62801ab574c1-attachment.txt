@@ -1,0 +1,5 @@
+[32mINFO    [0m tests.conftest:conftest.py:61 курьер уже существует!
+login: yeylnsgmhw
+password: gyexpkreef
+firstName: yfnfesrvzi
+[32mINFO    [0m helper:main_methods.py:179 Пытаемся получить ID !

@@ -1,0 +1,7 @@
+00:37:06 - helper - INFO - создаем курьера
+00:37:06 - helper - INFO - курьер создан!
+login: fcquulfvwu
+password: rxtrrkvkxk
+firstName: meosjfkbqu
+
+00:37:07 - helper - INFO - Не удалось создать курьера: response.status_code == 409 

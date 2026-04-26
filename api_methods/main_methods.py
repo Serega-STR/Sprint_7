@@ -1,39 +1,77 @@
 import requests
 import allure
 import logging
+import string
+import random
 
 from url import URL
 from helper import Helper
+from data import Data
 
-
-class AuthMethods:
-
-    @staticmethod
-    def get_token():
-        with allure.step("Получение токена авторизации"):
-            response = requests.post(URL.AUTH_ENDPOINT, json=AUTH_BODY)
-            assert response.status_code == 200, f"Expected status code 200, but got {response.status_code}"
-            return response.json()['token']
+# Инициализируем логгер из Helper
+logger = Helper.logger
 
 
 class CreateCourierMethods:
-    """ @staticmethod # будто бы этот метод излишний
-    def create_courier_return_data_courier():
-        login_pass_arr = []
-                
-        #создаем курьера
-        login_pass_arr = register_new_courier_and_return_login_password()
-        login = login_pass_arr[0]
-        password = login_pass_arr[1]
-        firstName = login_pass_arr[2]
-        return login, password, firstName """
-
+    
     @staticmethod
+    @allure.step('создание курьера')
     def create_courier():
-        return Helper.register_new_courier_and_return_login_password()
+        return Helper.register_new_courier_and_return_credential()
+    
 
     @staticmethod
-    def create_duplicate_courier():
+    @allure.step("""
+        Создаем курьера, здесь response передаем в тест. Проверяем создание. Удаляем курьера
+                """)
+    def create_courier_check_create_delete_courier():
+        logger.info(f'создаем курьера')
+        
+        # метод генерирует строку, состоящую только из букв нижнего регистра, в качестве параметра передаём длину строки
+        def generate_random_string(length):
+            letters = string.ascii_lowercase
+            random_string = ''.join(random.choice(letters) for i in range(length))
+            return random_string
+
+        # генерируем логин, пароль и имя курьера
+        login = generate_random_string(10)
+        password = generate_random_string(10)
+        first_name = generate_random_string(10)
+
+        # собираем тело запроса
+        payload = {
+            "login": login,
+            "password": password,
+            "firstName": first_name
+        }
+        
+        # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
+        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
+        if response.status_code == 201:
+            Helper.logger.info(f'курьер создан!\n' + 
+                f'login: {login}\n' +
+                f'password: {password}\n' +
+                f'firstName: {first_name}\n')
+            
+            payload_for_id = {
+                "login": login,
+                "password": password
+            }
+            id = LoginCourierMethods.get_id(payload_for_id)
+            DeleteCourierMethods.delete_courier_by_id(id)
+        else:
+            Helper.logger.info(f'Не удалось создать курьера: response.status_code == {response.status_code} ')
+        return response
+
+    
+    @staticmethod
+    @allure.step("""
+        Создаем курьера, дублируем запрос на создание.
+        response передаем в тест. 
+        Получаем id. Удаляем курьера
+        """)
+    def create_courier_check_create_duplicate_delete_courier():
+        
         logger.info(f'создаем курьера')
         login_pass_arr = []
         login_pass_arr = CreateCourierMethods.create_courier()
@@ -48,180 +86,211 @@ class CreateCourierMethods:
             "firstName": firstName
         }
         
-        # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
-
-        return response
-
-    @staticmethod
-    def create_courier_without_login_error_message():
-        # генерируем пароль и имя курьера
-        password = generate_random_string(10)
-        first_name = generate_random_string(10)
-
-        # собираем тело запроса
-        payload = {
-            "password": password,
-            "firstName": first_name
-        }
-        
-        # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
-
-        return response
-
-    @staticmethod
-    def create_courier_without_password_error_message():
-        # генерируем логин,   и имя курьера
-        login = generate_random_string(10)
-        first_name = generate_random_string(10)
-
-        # собираем тело запроса
-        payload = {
-            "login": login,
-            "firstName": first_name
-        }
-        
-        # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
+        # отправляем первый запрос на регистрацию курьера
         response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
         
-        return response
-
-    @staticmethod
-    def create_courier_without_first_name_error_message():
-        # генерируем логин, пароль 
-        login = generate_random_string(10)
-        password = generate_random_string(10)
-
-        # собираем тело запроса
-        payload = {
+        if response.status_code == 201:
+            Helper.logger.info(f'курьер создан!\n' + 
+            f'login: {login}\n' +
+            f'password: {password}\n' +
+            f'firstName: {first_name}\n')
+            payload_for_id = {
             "login": login,
             "password": password
-        }
-        
-        # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
-        response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
-        
+            }
+            # отправляем второй запрос на регистрацию этого же курьера
+            response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
+            
+            # получаем id, удаляем курьера
+            id = LoginCourierMethods.get_id(payload_for_id)
+            DeleteCourierMethods.delete_courier_by_id(id)
+            return response
+        else:
+            Helper.logger.info(f'Не удалось создать курьера: response.status_code == {response.status_code} ')
         return response
 
-    
+
     @staticmethod
-    def create_courier_with_already_used_login_error_message():
-        # генерируем логин, пароль и имя курьера
-        login = "ninja"
-        password = generate_random_string(10)
-        first_name = generate_random_string(10)
-
-        # собираем тело запроса
-        payload = {
-            "login": login,
-            "password": password
-        }
+    @allure.step("""
+        Попытка создать курьера с пустыми,
+        или None полями, или без поля логин\пароль
+        (значения передаются параметризацией)
+        """)
+    def create_courier_with_empty_field_error_message(payload):
         
         # отправляем запрос на регистрацию курьера и сохраняем ответ в переменную response
         response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
-        
+
         return response
+
 
 class LoginCourierMethods:
     @staticmethod
-    def courier_can_login():
-        logger.info(f'курьер может авторизоваться')
+    @allure.step("""
+        Получаем логин по переданным кредам
+        """)   
+    def get_id(payload):
         
-        login_pass_arr = []
-        login_pass_arr = CreateCourierMethods.create_courier()
-        login = login_pass_arr[0]
-        password = login_pass_arr[1]
-        firstName = login_pass_arr[2]
-
-        logger.info(f'курьер создан!')
-        logger.info(f'login: {login}') 
-        logger.info(f'password: {password}')
-        logger.info(f'firstName: {firstName}')
-
-        payload = {"login": login, "password": password}
-
-        # получаем логин
+        logger.info(f'получаем ID !\n')
         response = requests.post(URL.LOGIN_COURIER_ENDPOINT, json=payload)
-        # Проверяем статус-код
-        if response.status_code == 200:
-            # Парсим JSON и достаём id
-            data = response.json()
-            id = str(data['id'])
-            logger.info(f"ID курьера: {id}")  # Вывод: ID курьера: 12345
-        else:
-            logger.info(f"Ошибка получения логина: статус-код {response.status_code}")
 
-        yield response
+        # Парсим JSON и достаём id
+        data = response.json()
+        id = str(data['id'])
+        logger.info(f"Полученный ID курьера: {id}")  # Вывод: ID курьера: 12345
+        
+        return id
 
-        #удаляем курьера
-        logger.info(f'удаляем курьера c Id : {id}')
-        payload = { 'id' : id}
-        response = requests.delete(URL.DELETE_COURIER_ENDPOINT+id, data=payload)
-        if response.status_code == 200:
-            logger.info(response.status_code)
-            logger.info(response.json())
-            logger.info('курьер удален!')
-        else:
-            logger.info(f"Ошибка: статус-код {response.status_code}")
 
-class DeleteCourierMethods:
     @staticmethod
-    def create_delete_courier():
+    @allure.step("""
+        Создаем курьера. Получаем id. 
+        response передаем в тест. Удаляем курьера
+        """)
+    def create_courier_check_login_delete_courier():
+        
         logger.info(f'создаем курьера')
-        login_pass_arr = []
-        login_pass_arr = CreateCourierMethods.create_courier()
-        login = login_pass_arr[0]
-        password = login_pass_arr[1]
-        firstName = login_pass_arr[2]
-
-        logger.info(f'курьер создан!')
-        logger.info(f'login: {login}') 
-        logger.info(f'password: {password}')
-        logger.info(f'firstName: {firstName}')
+        login, password, _ = CreateCourierMethods.create_courier()
 
         payload = {"login": login, "password": password}
 
         # получаем логин
+        logger.info(f'получаем ID !\n')
         response = requests.post(URL.LOGIN_COURIER_ENDPOINT, json=payload)
 
-        yield response
+        # Парсим JSON и достаём id
+        data = response.json()
+        id = str(data['id'])
+        logger.info(f"Полученный ID курьера: {id}")  # Вывод: ID курьера: 12345
 
         # Проверяем статус-код
         if response.status_code == 200:
-            # Парсим JSON и достаём id
-            data = response.json()
-            id = str(data['id'])
-            logger.info(f"ID курьера: {id}")  # Вывод: ID курьера: 12345
-                #удаляем курьера
-            logger.info(f'удаляем курьера c Id : {id}')
-            payload = { 'id' : id}
-            response = requests.delete(URL.DELETE_COURIER_ENDPOINT+id, data=payload)
-            if response.status_code == 200:
-                logger.info(response.status_code)
-                logger.info(response.json())
-                logger.info('курьер удален!')
-            else:
-                logger.info(f"Ошибка: статус-код {response.status_code}")
+            #удаляем курьера
+            DeleteCourierMethods.delete_courier_by_id(id)
         else:
             logger.info(f"Ошибка получения логина: статус-код {response.status_code}. Курьер не удален")
 
-        
-        
+        return response
+
+
     @staticmethod
+    @allure.step("""
+        Пытаемся получить логин по переданным кредам
+        """)
+    def get_id_by_payload(payload):
+        
+        logger.info(f'Пытаемся получить ID !')
+        response = requests.post(URL.LOGIN_COURIER_ENDPOINT, json=payload)
+
+        return response
+
+
+    @staticmethod
+    @allure.step("""
+        Создаем курьера. Получаем креды. Удаляем курьера.
+        Пытаемся по кредам несуществующего пользователя получить id
+        response передаем в тест. 
+        """)
+    def get_id_unexistent_courier():
+        
+        logger.info(f'создаем курьера')
+        login, password, _ = CreateCourierMethods.create_courier()
+
+        payload = {"login": login, "password": password}
+
+        # получаем логин
+        logger.info(f'получаем ID !\n')
+        response = requests.post(URL.LOGIN_COURIER_ENDPOINT, json=payload)
+
+        # Парсим JSON и достаём id
+        data = response.json()
+        id = str(data['id'])
+
+        # Проверяем статус-код
+        if response.status_code == 200:
+            #удаляем курьера
+            DeleteCourierMethods.delete_courier_by_id(id)
+        else:
+            logger.info(f"Ошибка получения логина: статус-код {response.status_code}. Курьер не удален")
+
+        # получаем логин несуществующего пользователя
+        logger.info(f'получаем ID несуществующего пользователя !\n')
+        response = requests.post(URL.LOGIN_COURIER_ENDPOINT, json=payload)
+        return response
+
+
+class OrderMethods:
+    @staticmethod
+    @allure.step("""
+        Создаем заказ 
+        """)
+    def create_order(color):
+        payload = {
+            "firstName": "ivan",
+            "lastName": "ivanov",
+            "address": "Piter, Lenina д.1 кв. 5",
+            "metroStation": 4,
+            "phone": "+7 800 355 35 35",
+            "rentTime": 5,
+            "deliveryDate": "2026-05-06",
+            "comment": "comment",
+            "color": color
+                }
+
+        response = requests.post(URL.ORDER_ENDPOINT, json=payload)
+        if response.status_code == 201:
+            logger.info('Успешное создание заказа')
+        else:
+            logger.info(f'Не удалось создать заказ. status_code == {response.status_code}')
+        return response
+
+
+    @staticmethod
+    @allure.step("""
+        Получаем список заказов 
+        """)
+    def get_list_of_orders(payload=None):
+        response = requests.get(URL.ORDER_ENDPOINT, json=payload)
+        if response.status_code == 200:
+            logger.info('Получен список заказов')
+        else:
+            logger.info(f'Не удалось получить список заказов. status_code == {response.status_code}')
+        return response
+
+
+class DeleteCourierMethods:
+    @staticmethod
+    @allure.step("""
+        Удаление курьера по id
+        """)
     def delete_courier_by_id(id):
+        
         logger.info(f'удаляем курьера!')
         payload = { 'id' : str(id)}
         response = requests.delete(URL.DELETE_COURIER_ENDPOINT+str(id), data=payload)
         if response.status_code == 200:
-            logger.info(response.status_code)
-            logger.info(response.json())
-            logger.info('курьер удален!')
+            logger.info('курьер успешно удален!')
         else:
-            logger.info(f"{response.status_code}")
-            logger.info(response.json())
-            logger.info(response.text)
+            logger.info('Ошибка! курьер не был удален!')
+            logger.info(f'статус-код {response.status_code}')
+            logger.info(f'сообщение {response.json()}')
 
 
-# DeleteCourierMethods.create_delete_courier()
-# DeleteCourierMethods.delete_courier_by_id(735327)
+    @staticmethod
+    @allure.step("""
+        Удаление курьера по id с возвратом response
+        """)
+    def delete_courier_return_response(id):
+        
+        logger.info(f'удаляем курьера!')
+        payload = { 'id' : str(id)}
+        response = requests.delete(URL.DELETE_COURIER_ENDPOINT+str(id), data=payload)
+        if response.status_code == 200:
+            logger.info('курьер успешно удален!')
+        else:
+            logger.info('Ошибка! курьер не был удален!')
+            logger.info(f'статус-код {response.status_code}')
+            logger.info(f'сообщение {response.json()}')
+
+        return response
+            

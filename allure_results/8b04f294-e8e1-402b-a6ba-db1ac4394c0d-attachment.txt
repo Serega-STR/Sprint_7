@@ -1,0 +1,12 @@
+00:37:13 - helper - INFO - создаем курьера
+00:37:14 - helper - INFO - курьер создан!
+login: eftkxhmcfj
+password: plijgvnglo
+firstName: gpiqgbccef
+
+00:37:14 - helper - INFO - получаем ID !
+
+00:37:14 - helper - INFO - удаляем курьера!
+00:37:15 - helper - INFO - курьер успешно удален!
+00:37:15 - helper - INFO - получаем ID несуществующего пользователя !
+

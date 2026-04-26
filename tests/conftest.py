@@ -1,4 +1,8 @@
 import logging
+import pytest
+import requests
+
+from data import Data
 
 def setup_logger():
     # НАСТРОЙКА ЛОГИРОВАНИЯ
@@ -33,3 +37,33 @@ def setup_logger():
     return logger
 
 logger = setup_logger()
+
+@pytest.fixture(scope='class')
+def check_courier():
+    login = Data.login
+    password = Data.password
+    first_name = Data.first_name
+    payload = Data.payload_valid
+    response = requests.post('https://qa-scooter.praktikum-services.ru/api/v1/courier', data=payload)
+    if response.status_code == 201:
+        logger.info(f'курьер создан!\n' + 
+            f'login: {login}\n' +
+            f'password: {password}\n' +
+            f'firstName: {first_name}\n')
+        
+        payload_for_id = {
+            "login": login,
+            "password": password
+        }
+        id = LoginCourierMethods.get_id(payload_for_id)
+        DeleteCourierMethods.delete_courier_by_id(id)
+    elif response.status_code == 409 :
+        logger.info(f'курьер уже существует!\n' + 
+            f'login: {login}\n' +
+            f'password: {password}\n' +
+            f'firstName: {first_name}\n')
+    else:
+        logger.info(f'Не удалось создать курьера: response.status_code == {response.status_code} ')
+    return response
+
+    

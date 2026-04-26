@@ -1,0 +1,7 @@
+[32mINFO    [0m helper:main_methods.py:76 создаем курьера
+[32mINFO    [0m helper:helper.py:33 курьер создан!
+login: fcquulfvwu
+password: rxtrrkvkxk
+firstName: meosjfkbqu
+
+[32mINFO    [0m helper:main_methods.py:110 Не удалось создать курьера: response.status_code == 409

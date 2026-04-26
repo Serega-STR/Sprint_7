@@ -1,0 +1,11 @@
+[32mINFO    [0m helper:main_methods.py:29 создаем курьера
+[32mINFO    [0m helper:main_methods.py:52 курьер создан!
+login: evvlteozxq
+password: fqmhwvpmyp
+firstName: vgrstrdwcu
+
+[32mINFO    [0m helper:main_methods.py:133 получаем ID !
+
+[32mINFO    [0m helper:main_methods.py:139 Полученный ID курьера: 738353
+[32mINFO    [0m helper:main_methods.py:263 удаляем курьера!
+[32mINFO    [0m helper:main_methods.py:267 курьер успешно удален!

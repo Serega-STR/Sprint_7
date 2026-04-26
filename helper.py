@@ -6,15 +6,12 @@ import logging
 class Helper:
     # метод регистрации нового курьера возвращает список из логина и пароля
     # если регистрация не удалась, возвращает пустой список
-    def register_new_courier_and_return_login_password():
+    def register_new_courier_and_return_credential():
         # метод генерирует строку, состоящую только из букв нижнего регистра, в качестве параметра передаём длину строки
         def generate_random_string(length):
             letters = string.ascii_lowercase
             random_string = ''.join(random.choice(letters) for i in range(length))
             return random_string
-
-        # создаём список, чтобы метод мог его вернуть
-        login_pass = []
 
         # генерируем логин, пароль и имя курьера
         login = generate_random_string(10)
@@ -33,12 +30,15 @@ class Helper:
 
         # если регистрация прошла успешно (код ответа 201), добавляем в список логин и пароль курьера
         if response.status_code == 201:
-            login_pass.append(login)
-            login_pass.append(password)
-            login_pass.append(first_name)
+            Helper.logger.info(f'курьер создан!\n' + 
+                f'login: {login}\n' +
+                f'password: {password}\n' +
+                f'firstName: {first_name}\n')
+            return login, password, first_name
+        else:
+            Helper.logger.info(f'Ошибка! Не удалось создать курьера: response.status_code == {response.status_code} ')
 
-        # возвращаем список
-        return login_pass
+        
 
     # метод генерирует строку, состоящую только из букв нижнего регистра, в качестве параметра передаём длину строки
     def generate_random_string(length):
@@ -62,6 +62,7 @@ class Helper:
             datefmt='%H:%M:%S'
         )
 
+        # раскомментируйте нужный обработчик и нужное добавление обработчика к логгеру
         # Создаём обработчик для записи в файл
         file_handler = logging.FileHandler('test_logs.log', mode='w', encoding='utf-8')  # 'w' — перезаписывать, 'a' — дописывать
         file_handler.setLevel(logging.INFO)  # уровень для этого обработчика
