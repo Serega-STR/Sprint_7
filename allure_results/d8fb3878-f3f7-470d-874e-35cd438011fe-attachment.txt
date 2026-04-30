@@ -1,0 +1,7 @@
+22:47:32 - helper - INFO - курьер создан!
+login: yeylnsgmhw
+password: gyexpkreef
+firstName: yfnfesrvzi
+
+22:47:32 - helper - INFO - получаем ID !
+

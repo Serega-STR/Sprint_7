@@ -1,0 +1,11 @@
+[32mINFO    [0m helper:create_courier.py:41 курьер создан!
+login: haypzwhiij
+password: vnjvbewahe
+firstName: jpkvpvwglw
+
+[33mWARNING [0m helper:create_courier.py:47 Ошибка! Не удалось создать курьера: response.status_code == 409 
+[32mINFO    [0m helper:login_courier.py:46 получаем ID !
+
+[32mINFO    [0m helper:login_courier.py:26 Полученный ID курьера: 739302
+[32mINFO    [0m helper:delete_courier.py:15 удаляем курьера!
+[32mINFO    [0m helper:delete_courier.py:19 курьер с 739302 успешно удален!

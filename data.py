@@ -13,22 +13,25 @@ class Data:
         }
     
     payload_with_empty_field = [
-        {"" : "yeylnsgmhw", "password" : "gyexpkreef"},
-        {"login" : "", "password" : "gyexpkreef"},
-        {"login" : "yeylnsgmhw", "password" : None},
+        {"login" : "", "password" : password},
+        {"login" : login, "password" : ''},
+        {"login" : login, "password" : None},
+        {"login" : None, "password" : password},
         {},
-        {'login' : 'yeylnsgmhw'},
-        {'password' : 'gyexpkreef'}
+        {'login' : login},
+        {'password' : password}
     ]
 
     payload_without_login = [
-        {'password' : 'gyexpkreef'}
+        {'password' : password}
     ]
 
     payload_with_empty_login_field = [
-        {"" : "yeylnsgmhw", "password" : "gyexpkreef"},
-        {"login" : "", "password" : "gyexpkreef"},
-        {"login" : None, "password" : "gyexpkreef"},
+        {"login" : "", "password" : password},
+        {"login" : None, "password" : password},
+        {"login" : login, "password" : ''},
+        # см. README баг Б4 {"login" : login, "password" : None},
+        # см. README баг Б4 {"login" : login},
         {'password' : 'gyexpkreef'}
     ]
     #{"login" : "yeylnsgmhw", "password" : "gyexpkreef"},
@@ -68,6 +71,8 @@ class Data:
         {"login" : login, "password" : reversed_password}
     ]
 
+        
+
     color = [
         None,
         [],
@@ -77,3 +82,14 @@ class Data:
         ["BLACK", "GREY"],
         ["GREY", "BLACK"]
     ]
+
+    order_payload = {
+            "firstName": "ivan",
+            "lastName": "ivanov",
+            "address": "Piter, Lenina д.1 кв. 5",
+            "metroStation": 4,
+            "phone": "+7 800 355 35 35",
+            "rentTime": 5,
+            "deliveryDate": "2026-05-06",
+            "comment": "comment"
+                }

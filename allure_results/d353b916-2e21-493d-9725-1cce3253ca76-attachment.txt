@@ -1,0 +1,10 @@
+22:47:21 - helper - INFO - курьер создан!
+login: ayycqxeqjx
+password: rfzmnvxume
+firstName: uxonzjturh
+
+22:47:21 - helper - INFO - получаем ID !
+
+22:47:21 - helper - INFO - Полученный ID курьера: 739301
+22:47:21 - helper - INFO - удаляем курьера!
+22:47:22 - helper - INFO - курьер с 739301 успешно удален!
