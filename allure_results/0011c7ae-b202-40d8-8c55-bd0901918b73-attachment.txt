@@ -1,0 +1,9 @@
+[32mINFO    [0m helper:create_courier.py:41 курьер создан!
+login: ayycqxeqjx
+password: rfzmnvxume
+firstName: uxonzjturh
+[32mINFO    [0m helper:login_courier.py:46 получаем ID !
+
+[32mINFO    [0m helper:login_courier.py:26 Полученный ID курьера: 739301
+[32mINFO    [0m helper:delete_courier.py:15 удаляем курьера!
+[32mINFO    [0m helper:delete_courier.py:19 курьер с 739301 успешно удален!

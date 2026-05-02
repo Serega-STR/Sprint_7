@@ -1,0 +1,12 @@
+22:47:30 - helper - INFO - курьер создан!
+login: ehicpttfhv
+password: msvahhbmtt
+firstName: ezsivvvqyd
+
+22:47:30 - helper - INFO - получаем ID !
+
+22:47:31 - helper - INFO - получаем ID !
+
+22:47:31 - helper - INFO - Полученный ID курьера: 739304
+22:47:31 - helper - INFO - удаляем курьера!
+22:47:32 - helper - INFO - курьер с 739304 успешно удален!

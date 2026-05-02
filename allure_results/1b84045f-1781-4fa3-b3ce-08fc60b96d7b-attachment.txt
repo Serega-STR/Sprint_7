@@ -1,0 +1,11 @@
+00:37:10 - helper - INFO - создаем курьера
+00:37:10 - helper - INFO - курьер создан!
+login: hwoocjxmtc
+password: exedzlwpbj
+firstName: nrucgzzguf
+
+00:37:10 - helper - INFO - получаем ID !
+
+00:37:11 - helper - INFO - Полученный ID курьера: 738355
+00:37:11 - helper - INFO - удаляем курьера!
+00:37:11 - helper - INFO - курьер успешно удален!

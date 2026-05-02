@@ -1,0 +1,12 @@
+18:03:01 - helper - INFO - курьер создан!
+login: vxkdyoqoxa
+password: lhqemptyzg
+firstName: xjnsfekest
+
+18:03:01 - helper - INFO - получаем ID !
+
+18:03:01 - helper - INFO - получаем ID !
+
+18:03:02 - helper - INFO - Полученный ID курьера: 740067
+18:03:02 - helper - INFO - удаляем курьера!
+18:03:02 - helper - INFO - курьер с 740067 успешно удален!

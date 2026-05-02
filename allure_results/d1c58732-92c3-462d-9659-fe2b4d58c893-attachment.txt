@@ -1,0 +1,6 @@
+00:37:16 - tests.conftest - INFO - курьер уже существует!
+login: yeylnsgmhw
+password: gyexpkreef
+firstName: yfnfesrvzi
+
+00:37:16 - helper - INFO - Пытаемся получить ID !

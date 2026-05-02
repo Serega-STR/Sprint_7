@@ -1,0 +1,12 @@
+22:47:35 - helper - INFO - курьер создан!
+login: csvrsgheyo
+password: tqajmhspkh
+firstName: mzidlukcpg
+
+22:47:35 - helper - INFO - получаем ID !
+
+22:47:35 - helper - INFO - Полученный ID курьера: 739306
+22:47:35 - helper - INFO - удаляем курьера!
+22:47:36 - helper - INFO - курьер с 739306 успешно удален!
+22:47:36 - helper - INFO - получаем ID !
+

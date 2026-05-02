@@ -1,0 +1,1 @@
+[33mWARNING [0m helper:create_courier.py:47 Ошибка! Не удалось создать курьера: response.status_code == 400

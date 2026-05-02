@@ -1,0 +1,6 @@
+[32mINFO    [0m helper:login_courier.py:46 получаем ID !
+[32mINFO    [0m helper:login_courier.py:46 получаем ID !
+
+[32mINFO    [0m helper:login_courier.py:26 Полученный ID курьера: 739305
+[32mINFO    [0m helper:delete_courier.py:15 удаляем курьера!
+[32mINFO    [0m helper:delete_courier.py:19 курьер с 739305 успешно удален!

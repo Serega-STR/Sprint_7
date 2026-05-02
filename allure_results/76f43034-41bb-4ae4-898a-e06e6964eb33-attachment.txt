@@ -1,0 +1,11 @@
+22:47:22 - helper - INFO - курьер создан!
+login: haypzwhiij
+password: vnjvbewahe
+firstName: jpkvpvwglw
+
+22:47:23 - helper - WARNING - Ошибка! Не удалось создать курьера: response.status_code == 409 
+22:47:23 - helper - INFO - получаем ID !
+
+22:47:24 - helper - INFO - Полученный ID курьера: 739302
+22:47:24 - helper - INFO - удаляем курьера!
+22:47:24 - helper - INFO - курьер с 739302 успешно удален!

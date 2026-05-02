@@ -1,0 +1,12 @@
+18:03:05 - helper - INFO - курьер создан!
+login: dayeadrlps
+password: prxtzrftui
+firstName: taoewibdnk
+
+18:03:05 - helper - INFO - получаем ID !
+
+18:03:06 - helper - INFO - Полученный ID курьера: 740069
+18:03:06 - helper - INFO - удаляем курьера!
+18:03:06 - helper - INFO - курьер с 740069 успешно удален!
+18:03:06 - helper - INFO - получаем ID !
+

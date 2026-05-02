@@ -1,0 +1,10 @@
+22:47:28 - helper - INFO - курьер создан!
+login: sxkzvcjfmv
+password: dhbhdhetse
+firstName: pxmhwoipot
+
+22:47:28 - helper - INFO - получаем ID !
+
+22:47:29 - helper - INFO - Полученный ID курьера: 739303
+22:47:29 - helper - INFO - удаляем курьера!
+22:47:30 - helper - INFO - курьер с 739303 успешно удален!
