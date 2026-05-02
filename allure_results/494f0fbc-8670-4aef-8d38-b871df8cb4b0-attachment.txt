@@ -1,0 +1,11 @@
+18:02:53 - helper - INFO - курьер создан!
+login: lxthyhyuyt
+password: uvklqepfle
+firstName: naiyvffojw
+
+18:02:54 - helper - WARNING - Ошибка! Не удалось создать курьера: response.status_code == 409 
+18:02:54 - helper - INFO - получаем ID !
+
+18:02:55 - helper - INFO - Полученный ID курьера: 740065
+18:02:55 - helper - INFO - удаляем курьера!
+18:02:55 - helper - INFO - курьер с 740065 успешно удален!

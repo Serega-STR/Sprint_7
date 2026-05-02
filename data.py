@@ -3,8 +3,6 @@ class Data:
     login = 'yeylnsgmhw'
     password = 'gyexpkreef'
     first_name = 'yfnfesrvzi'
-    reversed_login = login[::-1]
-    reversed_password = password[::-1]
     
     payload_valid = {
         "login" : login, 
@@ -30,11 +28,9 @@ class Data:
         {"login" : "", "password" : password},
         {"login" : None, "password" : password},
         {"login" : login, "password" : ''},
-        # см. README баг Б4 {"login" : login, "password" : None},
-        # см. README баг Б4 {"login" : login},
-        {'password' : 'gyexpkreef'}
+        {'password' : password}
     ]
-    #{"login" : "yeylnsgmhw", "password" : "gyexpkreef"},
+    
     payload_wrong_credentials = [
         # пробел в логине
         {"login" : " ", "password" : password},
@@ -67,11 +63,12 @@ class Data:
         {"login" : "yeylnsgmhw", "password" : password + password[0:5]},
         {"login" : "yeylnsgmhw", "password" : password*2},
         # логин / пароль с валидными символами, но нарушенной последовательностью
-        {"login" : reversed_login, "password" : password},
-        {"login" : login, "password" : reversed_password}
+        {"login" : login[::-1], "password" : password},
+        {"login" : login, "password" : password[::-1]},
+        # логин / пароль CAPS'ом
+        {"login" : login.upper(), "password" : password},
+        {"login" : login, "password" : password.upper()}
     ]
-
-        
 
     color = [
         None,

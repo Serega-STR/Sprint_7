@@ -1,0 +1,10 @@
+18:02:52 - helper - INFO - курьер создан!
+login: btunruztdp
+password: jqidjayimm
+firstName: uuhmypdzks
+
+18:02:52 - helper - INFO - получаем ID !
+
+18:02:52 - helper - INFO - Полученный ID курьера: 740064
+18:02:52 - helper - INFO - удаляем курьера!
+18:02:53 - helper - INFO - курьер с 740064 успешно удален!

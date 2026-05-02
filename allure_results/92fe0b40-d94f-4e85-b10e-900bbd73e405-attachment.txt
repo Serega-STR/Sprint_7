@@ -1,0 +1,5 @@
+[32mINFO    [0m helper:create_courier.py:41 курьер создан!
+login: yeylnsgmhw
+password: gyexpkreef
+firstName: yfnfesrvzi
+[32mINFO    [0m helper:login_courier.py:46 получаем ID !

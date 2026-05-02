@@ -1,0 +1,11 @@
+[32mINFO    [0m helper:create_courier.py:41 курьер создан!
+login: dayeadrlps
+password: prxtzrftui
+firstName: taoewibdnk
+
+[32mINFO    [0m helper:login_courier.py:46 получаем ID !
+
+[32mINFO    [0m helper:login_courier.py:26 Полученный ID курьера: 740069
+[32mINFO    [0m helper:delete_courier.py:15 удаляем курьера!
+[32mINFO    [0m helper:delete_courier.py:19 курьер с 740069 успешно удален!
+[32mINFO    [0m helper:login_courier.py:46 получаем ID !

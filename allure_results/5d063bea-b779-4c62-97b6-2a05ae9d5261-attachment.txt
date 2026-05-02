@@ -1,0 +1,10 @@
+18:02:39 - helper - INFO - курьер создан!
+login: wsntfnqhfw
+password: laipgizqrz
+firstName: nrlfzefrbg
+
+18:02:39 - helper - INFO - получаем ID !
+
+18:02:39 - helper - INFO - Полученный ID курьера: 740062
+18:02:39 - helper - INFO - удаляем курьера!
+18:02:40 - helper - INFO - курьер с 740062 успешно удален!
